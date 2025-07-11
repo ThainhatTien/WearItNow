@@ -142,47 +142,60 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 # admin
 
+## Code Conventions and Best Practices
 
+### Coding Standards
+- Remove all `console.log` statements before pushing to production
+- Use proper error handling with UI notifications instead of `alert()`
+- Follow consistent naming conventions for functions and variables
+- Add appropriate type annotations for TypeScript code
 
-## Getting started
+### Git Workflow
+- Keep commits focused and descriptive
+- Use meaningful commit messages
+- Ensure `.gitignore` is properly configured to exclude unnecessary files
+- Resolve all merge conflicts before pushing
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+### API Handling
+- Use standardized error handling for API requests
+- Implement proper token refresh mechanism
+- Structure API response types consistently
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+### UI Components
+- Follow Material UI design patterns
+- Implement responsive design principles
+- Use consistent styling across components
 
-## Add your files
+## Getting Started
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+```bash
+# Install dependencies
+npm install
 
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/projectfinalg5/admin.git
-git branch -M main
-git push -uf origin main
-```
 
-## Integrate with your tools
+## Project Structure
 
-- [ ] [Set up project integrations](https://gitlab.com/projectfinalg5/admin/-/settings/integrations)
+- `/src/components`: Reusable UI components
+- `/src/pages`: Page components
+- `/src/services`: API services
+- `/src/store`: Redux store and actions
+- `/src/types`: TypeScript type definitions
+- `/src/utils`: Utility functions
+- `/src/theme`: Theme configuration
 
-## Collaborate with your team
+## Available Scripts
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+- `npm run dev`: Start development server
+- `npm run build`: Build for production
+- `npm run lint`: Run ESLint
+- `npm run preview`: Preview production build locally
+- `npm run deploy`: Deploy to production
 
 ***
 
