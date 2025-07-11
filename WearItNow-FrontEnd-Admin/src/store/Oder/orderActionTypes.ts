@@ -1,0 +1,9 @@
+// orderActionTypes.ts
+export const GET_ALL_ORDERS = 'GET_ALL_ORDERS';
+export const FETCH_ORDERS_SUCCESS = 'FETCH_ORDERS_SUCCESS';
+export const FETCH_ORDERS_FAILURE = 'FETCH_ORDERS_FAILURE';
+export const ADD_ORDER = 'ADD_ORDER';
+export const UPDATE_ORDER = 'UPDATE_ORDER';
+export const DELETE_ORDER = 'DELETE_ORDER';
+export const SET_ORDER_PAGE_SIZE = 'SET_ORDER_PAGE_SIZE';
+export const SET_CURRENT_ORDER_PAGE = 'SET_CURRENT_ORDER_PAGE';

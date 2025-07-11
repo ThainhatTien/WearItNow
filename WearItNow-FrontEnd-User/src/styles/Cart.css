@@ -1,0 +1,21 @@
+.fixed {
+    position: fixed; /* Đặt giỏ hàng cố định ở góc phải */
+    z-index: 20; /* Đảm bảo giỏ hàng nằm trên các phần tử khác */
+    transition: transform 0.3s ease; /* Hiệu ứng chuyển động */
+}
+
+.shadow-lg {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng cho giỏ hàng */
+}
+
+h2 {
+    font-size: 1.5rem; /* Kích thước tiêu đề */
+}
+
+button {
+    cursor: pointer; /* Con trỏ khi hover */
+}
+
+button:hover {
+    opacity: 0.8; /* Hiệu ứng hover cho nút */
+}

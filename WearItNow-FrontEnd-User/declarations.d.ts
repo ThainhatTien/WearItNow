@@ -1,0 +1,1 @@
+declare module '@awesome.me/kit-KIT_CODE/icons/classic/solid';

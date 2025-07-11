@@ -1,0 +1,197 @@
+import axios from 'axios';
+
+const API_BASE_URL = 'https://online-gateway.ghn.vn/shiip/public-api/master-data';
+const API_KEY = '2b58ec75-8ea6-11ef-a205-de063ca823db';  // API Key
+const SHOP_ID = '5401403 - 0976745901';  // Shop ID
+const API_BASE_URL_ORDER = 'https://api.wearltnow.online/api/orders';
+const API_BASE_URL_ADDRESS = "https://api.wearltnow.online/api/user-address/is-active";
+const API_BASE_URL_PAYMENT = 'https://api.wearltnow.online/api/payments/payment-types';
+const API_BASE_URL_AVAILABLE = 'https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/available-services'
+const API_BASE_URL_PAYMENTQRCODE = 'https://api.wearltnow.online/api/payments/createQR'
+const API_BASE_URL_FEESHIPNG = 'https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee'
+const API_BASE_URL_DISCOUNT = 'https://api.wearltnow.online/api/discount-codes/user';
+// Lấy danh sách Tỉnh/Thành
+export const getProvinces = async () => {
+    try {
+        const response = await axios.get(`${API_BASE_URL}/province`, {
+            headers: {
+                Token: API_KEY,
+                ShopId: SHOP_ID,
+            },
+        });
+        return response.data.data; // Trả về danh sách tỉnh/thành
+    } catch (error) {
+        console.error('Error fetching provinces:', error);
+        throw error;
+    }
+};
+
+// Lấy danh sách Quận/Huyện dựa trên province_id
+export const getDistricts = async (provinceId: number) => {
+    try {
+        const response = await axios.get(`${API_BASE_URL}/district?province_id=${provinceId}`, {
+            headers: {
+                Token: API_KEY,
+                ShopId: SHOP_ID,
+            },
+        });
+        return response.data.data; // Trả về danh sách quận/huyện
+    } catch (error) {
+        console.error('Error fetching districts:', error);
+        throw error;
+    }
+};
+
+// Lấy danh sách Phường/Xã dựa trên district_id
+export const getWards = async (districtId: number) => {
+    try {
+        const response = await axios.get(`${API_BASE_URL}/ward?district_id=${districtId}`, {
+            headers: {
+                Token: API_KEY,
+                ShopId: SHOP_ID,
+            },
+        });
+        return response.data.data; // Trả về danh sách phường/xã
+    } catch (error) {
+        console.error('Error fetching wards:', error);
+        throw error;
+    }
+};
+
+// Tính phí giao hàng
+export const calculateShippingFee = async (
+    toDistrictId: number,
+    serviceTypeId: number,
+    toWardCode: string,
+    items: Array<{
+        name: string;
+        quantity: number;
+        height: number; // Chiều cao của sản phẩm
+        weight: number; // Cân nặng của sản phẩm
+        length: number; // Chiều dài của sản phẩm
+        width: number;  // Chiều rộng của sản phẩm
+    }>
+) => {
+    try {
+        // Chuyển đổi items thành định dạng phù hợp
+        const formattedItems = items.map(item => ({
+            name: item.name,
+            quantity: item.quantity,
+            height: item.height, // Sử dụng chiều cao từ item
+            weight: item.weight, // Sử dụng cân nặng từ item
+            length: item.length, // Sử dụng chiều dài từ item
+            width: item.width,   // Sử dụng chiều rộng từ item
+        }));
+
+        const response = await axios.post(
+            `${API_BASE_URL_FEESHIPNG}`,
+            {
+                service_type_id: serviceTypeId,
+                from_district_id: 1442, // ID quận xuất phát
+                to_district_id: toDistrictId, // ID quận đến
+                from_ward_code: "21316", // Mã phường xuất phát
+                to_ward_code: toWardCode, // Mã phường đến
+                //height: formattedItems.reduce((acc, item) => acc + 1 * item.quantity, 0), // Giả định chiều cao cố định cho mỗi sản phẩm
+                //length: formattedItems.reduce((acc, item) => acc + 1 * item.quantity, 0), // Giả định chiều dài cố định cho mỗi sản phẩm
+                weight: 1,
+                //formattedItems.reduce((acc, item) => acc + 200 * item.quantity, 0), // Giả định cân nặng cố định cho mỗi sản phẩm
+                //width: formattedItems.reduce((acc, item) => acc + 1 * item.quantity, 0), // Giả định chiều rộng cố định cho mỗi sản phẩm
+                insurance_value: 0, // Giá trị bảo hiểm
+                coupon: null, // Mã giảm giá
+                items: formattedItems // Gửi items dưới dạng mảng đối tượng
+            },
+            {
+                headers: {
+                    Token: '32620eea-8b9f-11ef-8e53-0a00184fe694',
+                    ShopId: 194821,
+                },
+            }
+        );
+
+        return response.data.data.total; // Trả về tổng phí giao hàng
+    } catch (error) {
+        console.error('Error calculating shipping fee:', error);
+        throw error; // Ném lại lỗi để xử lý ở nơi gọi hàm
+    }
+};
+
+//Check out
+export const checkOut = async (requestBody: any): Promise<any> => {
+    try {
+        const response = await axios.post(`${API_BASE_URL_ORDER}`, requestBody, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        // Trả về dữ liệu từ server
+        return response.data;
+    } catch (error) {
+        console.error('Error checkout:', error);
+        throw error;
+    }
+};
+
+//Lấy danh sách dịch vụ giao hàng (loại hình giao hàng)
+export const getAvailable = async (districtId: number) => {
+    try {
+        const response = await axios.post(API_BASE_URL_AVAILABLE, {
+            shop_id: 194821, // Mã shop
+            from_district: 1454, // Mã quận của shop
+            to_district: districtId, // Mã quận của khách hàng
+        }, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Token': '32620eea-8b9f-11ef-8e53-0a00184fe694',
+            },
+        });
+        return response.data.data; // Trả về danh sách dịch vụ
+    } catch (error) {
+        console.error('Error fetching shipping services:', error);
+        throw error;
+    }
+};
+
+// Gọi các phương thức thanh toán
+export const PaymentTypes = async () => {
+    try {
+        const response = await axios.get(`${API_BASE_URL_PAYMENT}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error paymentTypes:', error);
+        throw error;
+    }
+};
+
+//Hàm lấy ra m QrCode
+export const PaymentData = async (orderId: number) => {
+    try {
+        const response = await axios.post(`${API_BASE_URL_PAYMENTQRCODE}`, {orderId});
+        return response.data;
+    } catch (error) {
+        console.error('Error render QrCode:', error);
+        throw error;
+    }
+};
+
+// Ham lấy địa chỉ người dùng đã đăng nhập
+export const getAddressUser = async (userId: number) => {
+    try {
+        const response = await axios.get(`${API_BASE_URL_ADDRESS}/${userId}`);
+        return response.data.result;
+    }catch (error) {
+        console.error('Error getAddressUser:', error);
+        throw error;
+    }
+}
+
+//Hàm lấy mã giảm giá của người dùng
+export const getDiscount = async (userId: number) => {
+    try {
+        const response = await  axios.get(`${API_BASE_URL_DISCOUNT}/${userId}`);
+        return response.data.result;
+    } catch (error) {
+        console.error('Error get Discount: ', error);
+        throw error;
+    }
+}
+

@@ -1,0 +1,5 @@
+.ant-tooltip {
+  position: fixed !important; /* Cố định Tooltip */
+  z-index: 0;
+  transform: none;
+}

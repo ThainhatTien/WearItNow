@@ -1,0 +1,40 @@
+/* TopSeller.module.css */
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.animate-blink {
+    animation: blink 2s infinite;
+}
+
+/* Định dạng cho nút "Mua ngay" */
+.buy-now-button {
+    background-color: #df1b1b;  /* Màu nền nút */
+    color: white;  /* Màu chữ */
+    border: none;  /* Bỏ viền */
+    padding: 10px 20px;  /* Cỡ nút */
+    font-size: 16px;  /* Cỡ chữ */
+    border-radius: 5px;  /* Bo góc */
+    cursor: pointer;  /* Con trỏ dạng tay */
+    transition: all 0.3s ease;  /* Tạo hiệu ứng chuyển tiếp mượt mà */
+}
+
+.buy-now-button:hover {
+    transform: scale(1.1);  /* Phóng to nút khi hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  /* Thêm bóng đổ */
+    background-color: #9a3939;  /* Đổi màu nền khi hover */
+}
+.product-image{
+    cursor: pointer;
+}
+.text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
