@@ -1,6 +1,18 @@
 
 import axiosInstance from './api.service';
-import { UserGroup } from '../types/DiscountTypes';
+import { User, UserGroup } from '../types/DiscountTypes';
+
+interface UserGroupResponse {
+  id: number;
+  name: string;
+  users: User[];
+}
+
+interface ApiResult<T> {
+  result: T;
+  code: number;
+  message: string;
+}
 
 // Simplified API response handler
 const handleError = (error: any) => {
@@ -14,6 +26,35 @@ export const getAllUserGroups = async () => {
     return response.data;
   } catch (error) {
     return handleError(error);
+  }
+};
+
+// Export getUserGroups for backward compatibility
+export const getUserGroups = async (): Promise<UserGroup[]> => {
+  try {
+    const response = await axiosInstance.get<ApiResult<UserGroupResponse[]>>('/user-groups/all');
+    if (response.data && Array.isArray(response.data.result)) {
+      return response.data.result.map((group: UserGroupResponse) => ({
+        id: group.id,
+        name: group.name,
+        users: group.users.map((user: User) => ({
+          userId: user.userId,
+          username: user.username,
+          email: user.email,
+          phone: user.phone,
+          lastname: user.lastname,
+          firstname: user.firstname,
+          gender: user.gender,
+          address: user.address,
+          dob: user.dob,
+          roles: user.roles,
+        })),
+      }));
+    }
+    throw new Error("Dữ liệu nhóm người dùng không hợp lệ");
+  } catch (error) {
+    console.error("Lỗi khi lấy dữ liệu nhóm người dùng:", error);
+    throw error;
   }
 };
 
@@ -32,6 +73,20 @@ export const createUserGroup = async (name: string) => {
     return response.data;
   } catch (error) {
     return handleError(error);
+  }
+};
+
+// Export addUserGroup for backward compatibility
+export const addUserGroup = async (name: string): Promise<UserGroup> => {
+  try {
+    const response = await axiosInstance.post('/user-groups/create', null, { params: { name } });
+    if (response.data && response.data.result) {
+      return response.data.result;
+    }
+    throw new Error("Không thể thêm nhóm người dùng");
+  } catch (error) {
+    console.error("Lỗi khi thêm nhóm người dùng:", error);
+    throw error;
   }
 };
 
