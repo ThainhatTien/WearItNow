@@ -1,111 +1,92 @@
 
-import axiosInstance from 'services/api.service';
-import { User, UserGroup, UserGroupApiResponse } from 'types/DiscountTypes';
+import axiosInstance from './api.service';
+import { UserGroup } from '../types/DiscountTypes';
 
+// Simplified API response handler
+const handleError = (error: any) => {
+  console.error('API Error:', error);
+  throw error;
+};
 
-// Lấy tất cả các UserGroup
-export const getUserGroups = async (): Promise<UserGroup[]> => {
-    try {
-      const response = await axiosInstance.get<UserGroupApiResponse<UserGroup[]>>('/user-groups/all');
-      if (response.data && Array.isArray(response.data.result)) {
-        return response.data.result.map(group => ({
-          id: group.id,
-          name: group.name,
-          users: group.users.map(user => ({
-            userId: user.userId,
-            username: user.username,
-            email: user.email,  // Thêm email
-            phone: user.phone,  // Thêm phone
-            lastname: user.lastname,
-            firstname: user.firstname,
-            gender: user.gender,
-            address: user.address,
-            dob: user.dob,
-            roles: user.roles,
-          })),
-        }));
-      }
-      throw new Error("Dữ liệu nhóm người dùng không hợp lệ");
-    } catch (error) {
-      console.error("Lỗi khi lấy dữ liệu nhóm người dùng:", error);
-      throw error;
-    }
-  };
-
-  export const addUserGroup = async (name: string): Promise<UserGroup> => {
-    try {
-      const response = await axiosInstance.post<UserGroupApiResponse<UserGroup>>(
-        '/user-groups/create', 
-        null, 
-        { params: { name } }  // Gửi name qua query string
-      );
-      if (response.data && response.data.result) {
-        return response.data.result;
-      }
-      throw new Error("Không thể thêm nhóm người dùng");
-    } catch (error) {
-      console.error("Lỗi khi thêm nhóm người dùng:", error);
-      throw error;
-    }
-  };
-  
-// Cập nhật nhóm người dùng
-export const updateUserGroup = async (id: number, name: string): Promise<UserGroup> => {
-    try {
-      const response = await axiosInstance.put<UserGroupApiResponse<UserGroup>>(`/user-groups/update/${id}`, { name }); // Gửi name trong body
-      if (response.data && response.data.result) {
-        return response.data.result;
-      }
-      throw new Error("Không thể cập nhật nhóm người dùng");
-    } catch (error) {
-      console.error("Lỗi khi cập nhật nhóm người dùng:", error);
-      throw error;
-    }
-  };
-  
-
-// Xóa nhóm người dùng
-export const deleteUserGroup = async (id: number): Promise<void> => {
+export const getAllUserGroups = async () => {
   try {
-    const response = await axiosInstance.delete<UserGroupApiResponse<null>>(`/user-groups/delete/${id}`);
-    if (response.data.code === 1000) {
-      console.log(response.data.message);
-    } else {
-      throw new Error("Không thể xóa nhóm người dùng");
-    }
+    const response = await axiosInstance.get('/user-groups');
+    return response.data;
   } catch (error) {
-    console.error("Lỗi khi xóa nhóm người dùng:", error);
-    throw error;
+    return handleError(error);
   }
 };
 
-// Lấy nhóm người dùng theo tên
-export const getUserGroupByName = async (name: string): Promise<UserGroup> => {
+export const getUserGroupById = async (id: number) => {
   try {
-    const response = await axiosInstance.get<UserGroupApiResponse<UserGroup>>('/user-groups/by-name', { params: { name } });
-    if (response.data && response.data.result) {
-      return response.data.result;
-    }
-    throw new Error("Không tìm thấy nhóm người dùng với tên này");
+    const response = await axiosInstance.get(`/user-groups/${id}`);
+    return response.data;
   } catch (error) {
-    console.error("Lỗi khi lấy nhóm người dùng theo tên:", error);
-      throw error;
+    return handleError(error);
   }
 };
-      
-      
-      
-// API cập nhật thông tin người dùng
-export const updateUser = async (user: User): Promise<User> => {
-    try {
-      const response = await axiosInstance.put<UserGroupApiResponse<User>>(`/users/update/${user.userId}`, user);
-      if (response.data && response.data.result) {
-        return response.data.result;
-      }
-      throw new Error("Không thể cập nhật thông tin người dùng");
-    } catch (error) {
-      console.error("Lỗi khi cập nhật người dùng:", error);
-      throw error;
-    }
-  };
+
+export const createUserGroup = async (name: string) => {
+  try {
+    const response = await axiosInstance.post('/user-groups', { name });
+    return response.data;
+  } catch (error) {
+    return handleError(error);
+  }
+};
+
+export const updateUserGroup = async (id: number, name: string) => {
+  try {
+    const response = await axiosInstance.put(`/user-groups/${id}`, { name });
+    return response.data;
+  } catch (error) {
+    return handleError(error);
+  }
+};
+
+export const deleteUserGroup = async (id: number) => {
+  try {
+    const response = await axiosInstance.delete(`/user-groups/delete/${id}`);
+    // Removed console.log statement
+    return response.data;
+  } catch (error) {
+    return handleError(error);
+  }
+};
+
+export const addUserToGroup = async (groupId: number, userId: number) => {
+  try {
+    const response = await axiosInstance.post(`/user-groups/${groupId}/users/${userId}`);
+    return response.data;
+  } catch (error) {
+    return handleError(error);
+  }
+};
+
+export const removeUserFromGroup = async (group: UserGroup, userId: number) => {
+  try {
+    const response = await axiosInstance.delete(`/user-groups/${group.id}/users/${userId}`);
+    return response.data;
+  } catch (error) {
+    return handleError(error);
+  }
+};
+
+export const getUsersInGroup = async (groupId: number) => {
+  try {
+    const response = await axiosInstance.get(`/user-groups/${groupId}/users`);
+    return response.data;
+  } catch (error) {
+    return handleError(error);
+  }
+};
+
+export const addUserToGroups = async (user: { id: number }, groupIds: number[]) => {
+  try {
+    const response = await axiosInstance.post(`/users/${user.id}/groups`, { groupIds });
+    return response.data;
+  } catch (error) {
+    return handleError(error);
+  }
+};
   

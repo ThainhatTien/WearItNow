@@ -4,19 +4,16 @@ import { refreshToken } from 'pages/authentication/RefreshToken';
 
 // Tạo một instance axios với cấu hình mặc định
 const axiosInstance = axios.create({
-  // baseURL: 'http://localhost:8080/api', // Địa chỉ API của bạn
-  baseURL: 'https://api.wearltnow.online/api',
+  baseURL: 'http://localhost:8080/api',
   headers: {
     'Content-Type': 'application/json',
-    // 'Authorization': `Bearer ${token}` // Bạn có thể thêm token ở đây nếu cần
   },
 });
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('accessToken');
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
-      console.log('Đang gửi header Authorization:', config.headers['Authorization']); // Xem header
     }
     return config;
   },
@@ -29,11 +26,9 @@ axiosInstance.interceptors.response.use(
   (response) => response, // Nếu phản hồi thành công, trả về phản hồi
   async (error) => {
     const originalRequest = error.config; // Lưu lại cấu hình yêu cầu gốc
-    console.log('Error response:', error.response); // In ra phản hồi lỗi
-    console.log('Original request:', originalRequest); // In ra yêu cầu gốc
 
     // Nếu lỗi là 401 Unauthorized và chưa thử refresh token
-    if (error.response && error.response.status === 401 && !originalRequest._retry) {
+    if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true; // Đánh dấu đã thử lại
 
       try {

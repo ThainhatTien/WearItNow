@@ -15,8 +15,9 @@ import {
   TextField,
   Tooltip,
   Typography,
+  IconButton,
 } from '@mui/material';
-import { DataGrid, GridActionsCellItem, GridColDef, GridRowParams } from '@mui/x-data-grid';
+import { DataGrid, GridActionsCellItem, GridColDef, GridRowParams, GridRenderCellParams } from '@mui/x-data-grid';
 import IconifyIcon from 'components/base/IconifyIcon';
 import { format } from 'date-fns';
 import { DiscountContext } from 'pages/Discount/DiscountContext';
@@ -27,6 +28,9 @@ import {
   DiscountType,
   DiscountWithUserGroupId,
 } from 'types/DiscountTypes';
+import { useSnackbar } from 'notistack';
+import EditIcon from '@mui/icons-material/Edit';
+
 const DiscountTable = () => {
   const context = useContext(DiscountContext);
 
@@ -59,6 +63,8 @@ const DiscountTable = () => {
   const prevPage = useRef(currentPage);
   const prevPageSize = useRef(pageSize);
 
+  const { enqueueSnackbar } = useSnackbar();
+
   const handleOpenAddModal = () => setOpenAddModal(true);
   const handleCloseAddModal = () => setOpenAddModal(false);
 
@@ -72,9 +78,12 @@ const DiscountTable = () => {
     setOpenViewModal(false);
   };
 
-  
-  // Function để thêm Discount
-  const handleAddDiscount = async () => {
+  const handleEditDiscount = (id: number) => {
+    console.log('Edit Discount:', id);
+    // Implement edit logic here
+  };
+
+  const isFormValid = () => {
     if (
       !newDiscount.code ||
       newDiscount.amount <= 0 ||
@@ -84,7 +93,16 @@ const DiscountTable = () => {
       !newDiscount.endDate ||
       new Date(newDiscount.startDate) > new Date(newDiscount.endDate)
     ) {
-      alert('Vui lòng điền đầy đủ các trường bắt buộc với dữ liệu hợp lệ!');
+      return false;
+    }
+    return true;
+  };
+
+  // Function để thêm Discount
+  const handleAddDiscount = async () => {
+    // Validate form
+    if (!isFormValid()) {
+      enqueueSnackbar('Vui lòng điền đầy đủ các trường bắt buộc với dữ liệu hợp lệ!', { variant: 'error' });
       return;
     }
 
@@ -124,8 +142,7 @@ const DiscountTable = () => {
         userGroupResponse: undefined, // Reset userGroupResponse
       }); // Reset form
     } catch (error) {
-      console.error('Lỗi khi thêm discount:', error);
-      alert('Đã có lỗi xảy ra khi thêm discount. Vui lòng thử lại.');
+      enqueueSnackbar('Đã có lỗi xảy ra khi thêm discount. Vui lòng thử lại.', { variant: 'error' });
     } finally {
       setAddDiscountLoading(false);
     }
@@ -216,7 +233,7 @@ const DiscountTable = () => {
             icon={<IconifyIcon icon="mdi:pencil" color="primary.main" />}
             label="Edit"
             size="small"
-            onClick={() => console.log('Edit Discount:', params.row.id)}
+            onClick={() => handleEditDiscount(params.row.id)}
           />
         </Tooltip>,
       ],

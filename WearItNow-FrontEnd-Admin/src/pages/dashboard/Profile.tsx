@@ -22,7 +22,8 @@ const ProfilePage = () => {
   if (error) return <div>{error}</div>;
 
   const handleSave = () => {
-    console.log('Lưu thông tin người dùng');
+    // Remove console.log statement
+    // Save user information logic here
   };
 
   return (

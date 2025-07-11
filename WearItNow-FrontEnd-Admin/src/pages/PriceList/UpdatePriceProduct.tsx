@@ -84,8 +84,6 @@ const UpdatePriceProductForm: React.FC<UpdatePriceListFormProps> = ({
                 productId: formData.productId,
                 priceValue: parseFloat(formData.priceValue),
             };
-            console.log("id productdata ",formData.productPriceId, formData.id)
-            console.log("nút ",onUpdatePriceProduct(updatedPriceProduct, formData.productPriceId, formData.id))
             onUpdatePriceProduct(updatedPriceProduct, formData.productPriceId, formData.id); 
         }
     };

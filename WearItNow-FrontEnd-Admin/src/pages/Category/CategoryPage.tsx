@@ -11,6 +11,9 @@ import IconifyIcon from 'components/base/IconifyIcon';
 import ViewCategoryModal from './ViewCategory';
 import CustomPaginationWrapper from 'pages/ProductPage/CustomPaginationWrapper';
 import CustomNoResultsOverlay from 'components/common/CustomNoResultsOverlay';
+import { useNavigate } from 'react-router-dom';
+import IconButton from '@mui/material/IconButton';
+import EditIcon from '@mui/icons-material/Edit';
 
 
 const CategoryTable = () => {
@@ -25,6 +28,8 @@ const CategoryTable = () => {
   // State lưu danh mục con
   const [subCategories, setSubCategories] = useState<CategoryWithId[]>([]);
   const [openSubCategoryModal, setOpenSubCategoryModal] = useState(false);
+
+  const navigate = useNavigate();
 
   // Fetch categories khi component mount
   const search = {
@@ -103,6 +108,11 @@ const filteredCategories = categories
     stt: index + 1, // Thêm số thứ tự cho mỗi danh mục
   }));
 
+  const handleEditCategory = (categoryId: number) => {
+    // Navigate to edit category page
+    navigate(`/category/update/${categoryId}`);
+  };
+
 
   const columns: GridColDef<any>[] = [
     { field: 'categoryId', headerName: 'Mã ID', width: 100, flex: 1 }, // ID có thể cần ít không gian hơn
@@ -121,33 +131,35 @@ const filteredCategories = categories
       field: 'actions',
       headerName: 'Hành Động',
       type: 'actions',
-      width: 120, // Cố định width cho actions
-      getActions: (params: GridRowParams) => [
-        <Tooltip title="Xem Chi Tiết" key="view">
-          <GridActionsCellItem
-            icon={<IconifyIcon icon="mdi:eye" color="info.main" />}
-            label="Xem"
-            size="small"
-            onClick={() => handleOpenView(params.row as CategoryWithId)}
-          />
-        </Tooltip>,
-        <Tooltip title="Xóa" key="delete">
-          <GridActionsCellItem
-            icon={<IconifyIcon icon="mingcute:delete-3-fill" color="error.main" />}
-            label="Xóa"
-            size="small"
-            onClick={() => handleOpenDeleteConfirm(params.row as CategoryWithId)}
-          />
-        </Tooltip>,
-        <Tooltip title="Sửa" key="edit">
-          <GridActionsCellItem
-            icon={<IconifyIcon icon="mdi:pencil" color="primary.main" />}
-            label="Sửa"
-            size="small"
-            onClick={() => console.log('Sửa Danh Mục:', params.row.categoryId)}
-          />
-        </Tooltip>,
-      ],
+      width: 150, // Cố định width cho actions
+      renderCell: (params) => (
+        <Stack direction="row" spacing={1}>
+          <Tooltip title="Edit">
+            <IconButton 
+              color="primary" 
+              onClick={() => handleEditCategory(params.row.categoryId)}
+            >
+              <EditIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Xem Chi Tiết" key="view">
+            <GridActionsCellItem
+              icon={<IconifyIcon icon="mdi:eye" color="info.main" />}
+              label="Xem"
+              size="small"
+              onClick={() => handleOpenView(params.row as CategoryWithId)}
+            />
+          </Tooltip>,
+          <Tooltip title="Xóa" key="delete">
+            <GridActionsCellItem
+              icon={<IconifyIcon icon="mingcute:delete-3-fill" color="error.main" />}
+              label="Xóa"
+              size="small"
+              onClick={() => handleOpenDeleteConfirm(params.row as CategoryWithId)}
+            />
+          </Tooltip>,
+        </Stack>
+      ),
     },
   ];
 

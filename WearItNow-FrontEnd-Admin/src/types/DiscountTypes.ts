@@ -31,6 +31,14 @@ export interface User {
   roles: Role[] | null; // Giữ nguyên nếu `roles` có thể null
 }
 
+// Định nghĩa giao diện UserGroupMember
+export interface UserGroupMember {
+  id: number;
+  userId: number;
+  groupId: number;
+  username: string;
+  email: string;
+}
 
 // Định nghĩa giao diện UserGroup
 export interface UserGroup {
