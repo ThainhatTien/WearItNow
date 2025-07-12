@@ -1051,8 +1051,13 @@ const DiscountCodes: React.FC<{
 
   const handleCustomCodeSubmit = () => {
     // Logic xử lý khi người dùng nhập mã giảm giá tùy chỉnh
-    console.log("Mã giảm giá tùy chỉnh đã nhập:", customCode);
-    // Ví dụ: Bạn có thể gọi một hàm gửi mã giảm giá nhập từ người dùng
+    if (customCode && customCode.trim() !== "") {
+      // Xử lý mã giảm giá tùy chỉnh
+      // TODO: Gọi API để kiểm tra và áp dụng mã giảm giá
+      showToast(`Đang kiểm tra mã giảm giá: ${customCode}`, "info");
+    } else {
+      showToast("Vui lòng nhập mã giảm giá", "error");
+    }
   };
 
   // if (loading) {

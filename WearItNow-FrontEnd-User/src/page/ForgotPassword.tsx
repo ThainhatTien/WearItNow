@@ -79,7 +79,6 @@ const ForgotPassword: React.FC = () => {
     };
     try {
       // Gọi API đặt lại mật khẩu và xác thực OTP cùng lúc
-      console.log(data);
       await AuthService.verifyOtpForgotpassword(data);
       setShowSuccessPopup(true); // Hiển thị popup khi thành công
     } catch (error) {

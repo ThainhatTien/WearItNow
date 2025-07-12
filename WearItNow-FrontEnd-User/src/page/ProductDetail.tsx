@@ -548,7 +548,9 @@ const ProductReviews: React.FC<{ productId: number; userId: number }> = ({
         setComments(data.result.comments);
         setAverageRate(data.result.averageRate);
       } catch (error) {
-        console.log("Không thể tải bình luận");
+        // Xử lý lỗi khi không thể tải bình luận
+        setComments([]);
+        setAverageRate(0);
       }
     };
     fetchComments();

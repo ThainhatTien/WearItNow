@@ -135,30 +135,21 @@ public class PaymentService {
     private static final ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
 
 
-
-
-
     public void startPaymentCheck(Long paymentId) {
         System.out.println("Starting payment check for paymentId: " + paymentId);
-
-        // Đảm bảo chỉ khởi động khi chưa có task nào đang chạy
-        if (scheduledFuture == null || scheduledFuture.isCancelled()) {
-            scheduledFuture = executorService.scheduleAtFixedRate(() -> {
-                try {
-                    checkPayment(paymentId);
-                } catch (Exception e) {
-                    System.err.println("Error during payment check: " + e.getMessage());
-                }
-            }, 0, 1, TimeUnit.SECONDS);  // Thực hiện mỗi giây
-        }
+        scheduledFuture = executorService.scheduleAtFixedRate(() -> {
+            try {
+                checkPayment(paymentId);
+            } catch (Exception e) {
+                System.err.println("Error during payment check: " + e.getMessage());
+            }
+        }, 0, 1, TimeUnit.SECONDS);
     }
 
     public void stopPaymentCheck() {
         if (scheduledFuture != null && !scheduledFuture.isCancelled()) {
-            scheduledFuture.cancel(true);  // Dừng task
+            scheduledFuture.cancel(true);
             System.out.println("Stopped payment check for paymentId");
-        } else {
-            System.out.println("No ongoing payment check to stop.");
         }
     }
 
@@ -192,7 +183,7 @@ public class PaymentService {
                             payment.setPaymentTime(LocalDateTime.now());
                             paymentRepository.save(payment);
 
-                            stopPaymentCheck();  // Dừng kiểm tra khi đã xác nhận thanh toán
+                            stopPaymentCheck();
 
                             System.out.println("Payment confirmed for paymentId: " + paymentId);
                             return new PaymentStatusResponse(PaymentStatus.PAIDBYCREDITCARD, "00:00", payment.getCreatedAt(), payment.getPaymentTime());
@@ -207,8 +198,6 @@ public class PaymentService {
         // Trả về khi thanh toán chưa xác nhận
         return new PaymentStatusResponse(PaymentStatus.UNPAID, "Payment not found or not confirmed", payment.getCreatedAt(), null);
     }
-
-
 
     public List<PaymentTypes> getPaymentTypes() {
         return paymentTypeRepository.findAll();

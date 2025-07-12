@@ -4,6 +4,30 @@ import {CartResult, CartItemServer} from "../stores/Cart";
 
 const API_BASE_URL = 'https://api.wearltnow.online/v0/cart'; // Thay đổi URL này theo API của bạn
 
+// Function to add a product to cart by productId and quantity
+// This is used by the product components
+const addToCart = async (productId: number, quantity: number = 1) => {
+  try {
+    const userId = localStorage.getItem("userId");
+    if (!userId) {
+      throw new Error("User is not logged in");
+    }
+    
+    // Create a default cart item with minimal required info
+    const cartItem: CartItemServer = {
+      productId,
+      quantity,
+      size: "M", // Default size, will be updated in modal
+      color: "Black" // Default color, will be updated in modal
+    };
+    
+    await addItemToCart(cartItem, Number(userId));
+    return true;
+  } catch (error) {
+    throw new Error("Failed to add item to cart");
+  }
+};
+
 export const getUserCart = async (userId: number): Promise<CartResult | null> => {
     try {
       const response = await axios.get(`${API_BASE_URL}/get?userId=${userId}`);
@@ -63,3 +87,5 @@ export const clearCartInDatabase = async () => {
         console.error("Error clearing cart:", error);
     }
 };
+
+export default addToCart;

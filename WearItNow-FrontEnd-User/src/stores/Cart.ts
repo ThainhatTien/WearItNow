@@ -1,5 +1,6 @@
 import {Result} from "../result/Result";
 import {Response} from "../response/Response";
+import { toast } from "react-toastify";
 
 export interface CartItem {
   productId: number; // ID của sản phẩm
@@ -24,14 +25,23 @@ export type CartResult = Response<Result<CartItem[]>>;
 export type CartResponse = Response<CartItem[]>;
 
 // Function to show a toast notification
-function showToast(message: string) {
+function showToast(message: string, type: "success" | "error" | "info" = "info") {
   // Implementation for showing toast notification
-  console.log(message); // Replace with actual toast logic
+  switch(type) {
+    case "success":
+      toast.success(message);
+      break;
+    case "error":
+      toast.error(message);
+      break;
+    default:
+      toast.info(message);
+  }
 }
 
 // Function to check if the cart is empty and show a toast if it is
 function checkCartAndNotify(cartItems: CartItem[]) {
   if (cartItems.length === 0) {
-    showToast("Vui lòng chọn sản phẩm"); // Notify user to select a product
+    showToast("Vui lòng chọn sản phẩm", "info"); // Notify user to select a product
   }
 }

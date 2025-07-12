@@ -83,17 +83,17 @@ const updateUserInfo = async (userId: string | null, data: any) => {
         return await retryResponse.json(); // Trả về dữ liệu nếu thành công
       } else {
         const retryErrorData = await retryResponse.json();
-        console.log("Lỗi khi thử lại:", retryErrorData); // Log lỗi khi thử lại
+        // Xử lý lỗi khi thử lại
         throw new Error("Cập nhật thông tin người dùng thất bại sau khi làm mới token");
       }
     } else {
       const errorData = await response.json();
-      console.log("Lỗi:", errorData); // Log lỗi từ phản hồi
+      // Xử lý lỗi từ phản hồi
       throw new Error(`Cập nhật thông tin người dùng thất bại: ${errorData.message}`);
     }
   } catch (error) {
-    console.log("Lỗi khi cập nhật:", error);
-    throw error;
+    // Xử lý lỗi khi cập nhật
+    throw new Error("Lỗi khi cập nhật thông tin người dùng");
   }
 };
 
@@ -104,7 +104,7 @@ const refreshToken = async (oldToken: string) => {
     const { token: newToken } = await AuthApi.refreshToken(oldToken); // Gọi API làm mới token
     return newToken; // Trả về token mới
   } catch (error) {
-    console.error('Token refresh failed:', error);
+    // Xử lý lỗi khi làm mới token
     localStorage.removeItem("token");
     throw new Error("Failed to refresh token");
   }

@@ -1,8 +1,13 @@
 import axios from 'axios';
 
+// API configuration - these should be moved to environment variables in production
 const API_BASE_URL = 'https://online-gateway.ghn.vn/shiip/public-api/master-data';
-const API_KEY = '2b58ec75-8ea6-11ef-a205-de063ca823db';  // API Key
-const SHOP_ID = '5401403 - 0976745901';  // Shop ID
+// TODO: Move these to environment variables
+const API_KEY = process.env.REACT_APP_GHN_API_KEY || '2b58ec75-8ea6-11ef-a205-de063ca823db';
+const SHOP_ID = process.env.REACT_APP_GHN_SHOP_ID || '5401403 - 0976745901';
+const GHN_TOKEN = process.env.REACT_APP_GHN_TOKEN || '32620eea-8b9f-11ef-8e53-0a00184fe694';
+const GHN_SHOP_ID = process.env.REACT_APP_GHN_SHOP_ID_NUM || 194821;
+
 const API_BASE_URL_ORDER = 'https://api.wearltnow.online/api/orders';
 const API_BASE_URL_ADDRESS = "https://api.wearltnow.online/api/user-address/is-active";
 const API_BASE_URL_PAYMENT = 'https://api.wearltnow.online/api/payments/payment-types';
@@ -10,6 +15,7 @@ const API_BASE_URL_AVAILABLE = 'https://dev-online-gateway.ghn.vn/shiip/public-a
 const API_BASE_URL_PAYMENTQRCODE = 'https://api.wearltnow.online/api/payments/createQR'
 const API_BASE_URL_FEESHIPNG = 'https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee'
 const API_BASE_URL_DISCOUNT = 'https://api.wearltnow.online/api/discount-codes/user';
+
 // Lấy danh sách Tỉnh/Thành
 export const getProvinces = async () => {
     try {
@@ -21,8 +27,8 @@ export const getProvinces = async () => {
         });
         return response.data.data; // Trả về danh sách tỉnh/thành
     } catch (error) {
-        console.error('Error fetching provinces:', error);
-        throw error;
+        // Xử lý lỗi khi không thể lấy danh sách tỉnh/thành
+        throw new Error('Không thể lấy danh sách tỉnh/thành');
     }
 };
 
@@ -37,8 +43,8 @@ export const getDistricts = async (provinceId: number) => {
         });
         return response.data.data; // Trả về danh sách quận/huyện
     } catch (error) {
-        console.error('Error fetching districts:', error);
-        throw error;
+        // Xử lý lỗi khi không thể lấy danh sách quận/huyện
+        throw new Error('Không thể lấy danh sách quận/huyện');
     }
 };
 
@@ -53,8 +59,8 @@ export const getWards = async (districtId: number) => {
         });
         return response.data.data; // Trả về danh sách phường/xã
     } catch (error) {
-        console.error('Error fetching wards:', error);
-        throw error;
+        // Xử lý lỗi khi không thể lấy danh sách phường/xã
+        throw new Error('Không thể lấy danh sách phường/xã');
     }
 };
 
@@ -102,16 +108,16 @@ export const calculateShippingFee = async (
             },
             {
                 headers: {
-                    Token: '32620eea-8b9f-11ef-8e53-0a00184fe694',
-                    ShopId: 194821,
+                    Token: GHN_TOKEN,
+                    ShopId: GHN_SHOP_ID,
                 },
             }
         );
 
         return response.data.data.total; // Trả về tổng phí giao hàng
     } catch (error) {
-        console.error('Error calculating shipping fee:', error);
-        throw error; // Ném lại lỗi để xử lý ở nơi gọi hàm
+        // Xử lý lỗi khi không thể tính phí giao hàng
+        throw new Error('Không thể tính phí giao hàng');
     }
 };
 
@@ -126,8 +132,8 @@ export const checkOut = async (requestBody: any): Promise<any> => {
         // Trả về dữ liệu từ server
         return response.data;
     } catch (error) {
-        console.error('Error checkout:', error);
-        throw error;
+        // Xử lý lỗi khi không thể thanh toán
+        throw new Error('Không thể hoàn tất đơn hàng');
     }
 };
 
@@ -135,19 +141,19 @@ export const checkOut = async (requestBody: any): Promise<any> => {
 export const getAvailable = async (districtId: number) => {
     try {
         const response = await axios.post(API_BASE_URL_AVAILABLE, {
-            shop_id: 194821, // Mã shop
+            shop_id: GHN_SHOP_ID, // Mã shop
             from_district: 1454, // Mã quận của shop
             to_district: districtId, // Mã quận của khách hàng
         }, {
             headers: {
                 'Content-Type': 'application/json',
-                'Token': '32620eea-8b9f-11ef-8e53-0a00184fe694',
+                'Token': GHN_TOKEN,
             },
         });
         return response.data.data; // Trả về danh sách dịch vụ
     } catch (error) {
-        console.error('Error fetching shipping services:', error);
-        throw error;
+        // Xử lý lỗi khi không thể lấy dịch vụ giao hàng
+        throw new Error('Không thể lấy dịch vụ giao hàng');
     }
 };
 
@@ -157,8 +163,8 @@ export const PaymentTypes = async () => {
         const response = await axios.get(`${API_BASE_URL_PAYMENT}`);
         return response.data;
     } catch (error) {
-        console.error('Error paymentTypes:', error);
-        throw error;
+        // Xử lý lỗi khi không thể lấy phương thức thanh toán
+        throw new Error('Không thể lấy phương thức thanh toán');
     }
 };
 
@@ -168,8 +174,8 @@ export const PaymentData = async (orderId: number) => {
         const response = await axios.post(`${API_BASE_URL_PAYMENTQRCODE}`, {orderId});
         return response.data;
     } catch (error) {
-        console.error('Error render QrCode:', error);
-        throw error;
+        // Xử lý lỗi khi không thể tạo mã QR
+        throw new Error('Không thể tạo mã QR thanh toán');
     }
 };
 
@@ -179,8 +185,8 @@ export const getAddressUser = async (userId: number) => {
         const response = await axios.get(`${API_BASE_URL_ADDRESS}/${userId}`);
         return response.data.result;
     }catch (error) {
-        console.error('Error getAddressUser:', error);
-        throw error;
+        // Xử lý lỗi khi không thể lấy địa chỉ người dùng
+        throw new Error('Không thể lấy địa chỉ người dùng');
     }
 }
 
@@ -190,8 +196,8 @@ export const getDiscount = async (userId: number) => {
         const response = await  axios.get(`${API_BASE_URL_DISCOUNT}/${userId}`);
         return response.data.result;
     } catch (error) {
-        console.error('Error get Discount: ', error);
-        throw error;
+        // Xử lý lỗi khi không thể lấy mã giảm giá
+        throw new Error('Không thể lấy mã giảm giá');
     }
 }
 

@@ -1,0 +1,8 @@
+com\wearltnow\controller\AuthControllerTest.class
+com\wearltnow\controller\ProductControllerTest.class
+com\wearltnow\controller\UserControllerTest.class
+com\wearltnow\controller\CategoryControllerTest.class
+com\wearltnow\controller\OrderControllerTest.class
+com\wearltnow\WearItnowApplicationTests.class
+com\wearltnow\service\UserServiceTest.class
+com\wearltnow\controller\CartControllerTest.class

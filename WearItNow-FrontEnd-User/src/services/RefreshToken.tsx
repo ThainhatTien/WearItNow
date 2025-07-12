@@ -14,7 +14,8 @@ export const refreshToken = async () => {
 
     // Kiểm tra xem token đã hết hạn chưa
     if (!token || currentTime >= tokenExpiryTime) {
-      console.warn('Token đã hết hạn hoặc không có token.');
+      // Token đã hết hạn hoặc không có token
+      throw new Error('Token đã hết hạn hoặc không có token');
     }
 
     const response = await axios.post(GET_API +'/refresh', {token})
@@ -31,9 +32,9 @@ export const refreshToken = async () => {
     localStorage.setItem('token', newAccessToken);
     return newAccessToken;
   } catch (error) {
-    // console.error('Lỗi khi refresh token:', error);
-    console.error('Lỗi khi refresh token:', error);
+    // Xử lý lỗi khi làm mới token
     localStorage.clear();
     window.location.href = '/authentication/login';
+    throw new Error('Lỗi khi làm mới token');
   }
 };

@@ -150,8 +150,8 @@ export const fetchProductById = async (
     );
     return response.data; // Dữ liệu sản phẩm trong response.data
   } catch (error) {
-    console.error("Error product:", error);
-    throw error;
+    // Xử lý lỗi khi không thể lấy thông tin sản phẩm
+    throw new Error("Không thể lấy thông tin sản phẩm");
   }
 };
 
@@ -165,8 +165,8 @@ export const fetchProductReviews = async (
     );
     return response.data;
   } catch (error) {
-    console.log("Error product:", error);
-    throw error;
+    // Xử lý lỗi khi không thể lấy đánh giá sản phẩm
+    throw new Error("Không thể lấy đánh giá sản phẩm");
   }
 };
 
@@ -180,8 +180,8 @@ export const fetchProductBySlug = async (
     );
     return response.data; // Dữ liệu sản phẩm trong response.data
   } catch (error) {
-    console.error("Error product:", error);
-    throw error;
+    // Xử lý lỗi khi không thể lấy sản phẩm theo slug
+    throw new Error("Không thể lấy sản phẩm theo đường dẫn");
   }
 };
 
@@ -212,8 +212,8 @@ export const fetchProductByProductName = async (
     );
     return response.data;
   } catch (error) {
-    console.error("Error product:", error);
-    throw error;
+    // Xử lý lỗi khi không thể lấy sản phẩm theo tên
+    throw new Error("Không thể tìm kiếm sản phẩm theo tên");
   }
 };
 
@@ -228,8 +228,10 @@ export const sendComment = async (commentData: CommentData) => {
       
     });
 
-    console.log("Comment added successfully");
+    // Bình luận đã được thêm thành công
+    return true;
   } catch (error) {
-    console.error("Error adding comment:", error);
+    // Xử lý lỗi khi thêm bình luận
+    throw new Error("Không thể thêm bình luận");
   }
 };

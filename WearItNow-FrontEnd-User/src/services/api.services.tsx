@@ -25,8 +25,6 @@ const axiosInstance = axios.create({
     (response) => response, // Nếu phản hồi thành công, trả về phản hồi
     async (error) => {
       const originalRequest = error.config; // Lưu lại cấu hình yêu cầu gốc
-      console.log('Error response:', error.response); // In ra phản hồi lỗi
-      console.log('Original request:', originalRequest); // In ra yêu cầu gốc
   
       // Nếu lỗi là 401 Unauthorized và chưa thử refresh token
       if (error.response && error.response.status === 401 && !originalRequest._retry) {
