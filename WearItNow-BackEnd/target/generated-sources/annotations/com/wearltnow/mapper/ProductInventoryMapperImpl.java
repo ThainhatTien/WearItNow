@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-07-13T00:01:35+0700",
-    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 23.0.2 (Oracle Corporation)"
+    date = "2025-07-13T00:42:22+0700",
+    comments = "version: 1.5.3.Final, compiler: Eclipse JDT (IDE) 3.42.50.v20250628-1110, environment: Java 21.0.7 (Eclipse Adoptium)"
 )
 @Component
 public class ProductInventoryMapperImpl implements ProductInventoryMapper {
@@ -25,9 +25,9 @@ public class ProductInventoryMapperImpl implements ProductInventoryMapper {
         ProductInventory.ProductInventoryBuilder productInventory = ProductInventory.builder();
 
         productInventory.color( request.getColor() );
-        productInventory.size( request.getSize() );
-        productInventory.quantity( request.getQuantity() );
         productInventory.purchasePrice( request.getPurchasePrice() );
+        productInventory.quantity( request.getQuantity() );
+        productInventory.size( request.getSize() );
 
         return productInventory.build();
     }
@@ -41,11 +41,11 @@ public class ProductInventoryMapperImpl implements ProductInventoryMapper {
         ProductInventoryResponse.ProductInventoryResponseBuilder productInventoryResponse = ProductInventoryResponse.builder();
 
         productInventoryResponse.productId( requestProductProductId( request ) );
-        productInventoryResponse.productInventoryId( request.getProductInventoryId() );
         productInventoryResponse.color( request.getColor() );
-        productInventoryResponse.size( request.getSize() );
-        productInventoryResponse.quantity( request.getQuantity() );
+        productInventoryResponse.productInventoryId( request.getProductInventoryId() );
         productInventoryResponse.purchasePrice( request.getPurchasePrice() );
+        productInventoryResponse.quantity( request.getQuantity() );
+        productInventoryResponse.size( request.getSize() );
 
         productInventoryResponse.totalPrice( calculateTotalPrice(request.getQuantity(), request.getPurchasePrice()) );
 
@@ -59,9 +59,9 @@ public class ProductInventoryMapperImpl implements ProductInventoryMapper {
         }
 
         productInventory.setColor( request.getColor() );
-        productInventory.setSize( request.getSize() );
-        productInventory.setQuantity( request.getQuantity() );
         productInventory.setPurchasePrice( request.getPurchasePrice() );
+        productInventory.setQuantity( request.getQuantity() );
+        productInventory.setSize( request.getSize() );
     }
 
     private Long requestProductProductId(ProductInventory productInventory) {

@@ -14,8 +14,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-07-13T00:01:34+0700",
-    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 23.0.2 (Oracle Corporation)"
+    date = "2025-07-13T00:42:22+0700",
+    comments = "version: 1.5.3.Final, compiler: Eclipse JDT (IDE) 3.42.50.v20250628-1110, environment: Java 21.0.7 (Eclipse Adoptium)"
 )
 @Component
 public class OrderMapperImpl implements OrderMapper {
@@ -35,12 +35,12 @@ public class OrderMapperImpl implements OrderMapper {
         orderResponse.totalOrder( order.getOrderTotal() );
         orderResponse.payment_status( orderPaymentPaymentStatus( order ) );
         orderResponse.paymentId( orderPaymentPaymentId( order ) );
+        orderResponse.createdAt( order.getCreatedAt() );
+        orderResponse.discountAmount( order.getDiscountAmount() );
+        orderResponse.expected_delivery_time( order.getExpected_delivery_time() );
         orderResponse.orderId( order.getOrderId() );
         orderResponse.order_code( order.getOrder_code() );
-        orderResponse.discountAmount( order.getDiscountAmount() );
         orderResponse.shippingFee( order.getShippingFee() );
-        orderResponse.expected_delivery_time( order.getExpected_delivery_time() );
-        orderResponse.createdAt( order.getCreatedAt() );
 
         return orderResponse.build();
     }
@@ -56,9 +56,9 @@ public class OrderMapperImpl implements OrderMapper {
         orderDetailResponse.setProductId( orderDetailProductProductId( orderDetail ) );
         orderDetailResponse.setName( orderDetailProductName( orderDetail ) );
         orderDetailResponse.setImage( orderDetailProductImage( orderDetail ) );
+        orderDetailResponse.setColor( orderDetail.getColor() );
         orderDetailResponse.setPrice( orderDetail.getPrice() );
         orderDetailResponse.setQuantity( orderDetail.getQuantity() );
-        orderDetailResponse.setColor( orderDetail.getColor() );
         orderDetailResponse.setSize( orderDetail.getSize() );
 
         return orderDetailResponse;

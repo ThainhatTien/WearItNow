@@ -19,8 +19,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-07-13T00:01:35+0700",
-    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 23.0.2 (Oracle Corporation)"
+    date = "2025-07-13T00:42:22+0700",
+    comments = "version: 1.5.3.Final, compiler: Eclipse JDT (IDE) 3.42.50.v20250628-1110, environment: Java 21.0.7 (Eclipse Adoptium)"
 )
 @Component
 public class DiscountPriceMapperImpl implements DiscountPriceMapper {
@@ -35,8 +35,8 @@ public class DiscountPriceMapperImpl implements DiscountPriceMapper {
 
         discountPrice.product( discountPriceRequestToProduct( request ) );
         discountPrice.discountRate( request.getDiscountRate() );
-        discountPrice.startDate( request.getStartDate() );
         discountPrice.endDate( request.getEndDate() );
+        discountPrice.startDate( request.getStartDate() );
 
         return discountPrice.build();
     }
@@ -48,8 +48,8 @@ public class DiscountPriceMapperImpl implements DiscountPriceMapper {
         }
 
         discountPrice.setDiscountRate( request.getDiscountRate() );
-        discountPrice.setStartDate( request.getStartDate() );
         discountPrice.setEndDate( request.getEndDate() );
+        discountPrice.setStartDate( request.getStartDate() );
     }
 
     @Override
@@ -62,10 +62,10 @@ public class DiscountPriceMapperImpl implements DiscountPriceMapper {
 
         discountPriceResponse.setProduct( productToProductResponse( discountPrice.getProduct() ) );
         discountPriceResponse.setProductId( discountPriceProductProductId( discountPrice ) );
-        discountPriceResponse.setId( discountPrice.getId() );
         discountPriceResponse.setDiscountRate( discountPrice.getDiscountRate() );
-        discountPriceResponse.setStartDate( discountPrice.getStartDate() );
         discountPriceResponse.setEndDate( discountPrice.getEndDate() );
+        discountPriceResponse.setId( discountPrice.getId() );
+        discountPriceResponse.setStartDate( discountPrice.getStartDate() );
 
         return discountPriceResponse;
     }
@@ -117,14 +117,14 @@ public class DiscountPriceMapperImpl implements DiscountPriceMapper {
 
         SupplierResponse.SupplierResponseBuilder supplierResponse = SupplierResponse.builder();
 
-        supplierResponse.supplierId( supplier.getSupplierId() );
+        supplierResponse.contactPerson( supplier.getContactPerson() );
         supplierResponse.description( supplier.getDescription() );
         supplierResponse.email( supplier.getEmail() );
-        supplierResponse.contactPerson( supplier.getContactPerson() );
         supplierResponse.name( supplier.getName() );
-        supplierResponse.website( supplier.getWebsite() );
         supplierResponse.phone( supplier.getPhone() );
+        supplierResponse.supplierId( supplier.getSupplierId() );
         supplierResponse.taxCode( supplier.getTaxCode() );
+        supplierResponse.website( supplier.getWebsite() );
 
         return supplierResponse.build();
     }
@@ -137,11 +137,11 @@ public class DiscountPriceMapperImpl implements DiscountPriceMapper {
         CategoryResponse.CategoryResponseBuilder categoryResponse = CategoryResponse.builder();
 
         categoryResponse.categoryId( category.getCategoryId() );
-        categoryResponse.name( category.getName() );
-        categoryResponse.image( category.getImage() );
         categoryResponse.description( category.getDescription() );
-        categoryResponse.status( category.getStatus() );
+        categoryResponse.image( category.getImage() );
+        categoryResponse.name( category.getName() );
         categoryResponse.slug( category.getSlug() );
+        categoryResponse.status( category.getStatus() );
         categoryResponse.subCategories( categoryListToSubCategoryResponseList( category.getSubCategories() ) );
         categoryResponse.supplier( supplierToSupplierResponse( category.getSupplier() ) );
 
@@ -155,11 +155,11 @@ public class DiscountPriceMapperImpl implements DiscountPriceMapper {
 
         ProductInventoryResponse.ProductInventoryResponseBuilder productInventoryResponse = ProductInventoryResponse.builder();
 
-        productInventoryResponse.productInventoryId( productInventory.getProductInventoryId() );
         productInventoryResponse.color( productInventory.getColor() );
-        productInventoryResponse.size( productInventory.getSize() );
-        productInventoryResponse.quantity( productInventory.getQuantity() );
+        productInventoryResponse.productInventoryId( productInventory.getProductInventoryId() );
         productInventoryResponse.purchasePrice( productInventory.getPurchasePrice() );
+        productInventoryResponse.quantity( productInventory.getQuantity() );
+        productInventoryResponse.size( productInventory.getSize() );
 
         return productInventoryResponse.build();
     }

@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-07-13T00:01:36+0700",
-    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 23.0.2 (Oracle Corporation)"
+    date = "2025-07-13T00:42:22+0700",
+    comments = "version: 1.5.3.Final, compiler: Eclipse JDT (IDE) 3.42.50.v20250628-1110, environment: Java 21.0.7 (Eclipse Adoptium)"
 )
 @Component
 public class CategoryMapperImpl implements CategoryMapper {
@@ -25,10 +25,10 @@ public class CategoryMapperImpl implements CategoryMapper {
 
         Category.CategoryBuilder category = Category.builder();
 
-        category.name( request.getName() );
         category.description( request.getDescription() );
-        category.status( request.getStatus() );
+        category.name( request.getName() );
         category.slug( request.getSlug() );
+        category.status( request.getStatus() );
 
         return category.build();
     }
@@ -43,11 +43,11 @@ public class CategoryMapperImpl implements CategoryMapper {
 
         categoryResponse.parentId( categoryParentCategoryCategoryId( category ) );
         categoryResponse.categoryId( category.getCategoryId() );
-        categoryResponse.name( category.getName() );
-        categoryResponse.image( category.getImage() );
         categoryResponse.description( category.getDescription() );
-        categoryResponse.status( category.getStatus() );
+        categoryResponse.image( category.getImage() );
+        categoryResponse.name( category.getName() );
         categoryResponse.slug( category.getSlug() );
+        categoryResponse.status( category.getStatus() );
         categoryResponse.supplier( supplierToSupplierResponse( category.getSupplier() ) );
 
         categoryResponse.subCategories( mapSubCategories(category.getSubCategories()) );
@@ -78,10 +78,10 @@ public class CategoryMapperImpl implements CategoryMapper {
             return;
         }
 
-        category.setName( request.getName() );
         category.setDescription( request.getDescription() );
-        category.setStatus( request.getStatus() );
+        category.setName( request.getName() );
         category.setSlug( request.getSlug() );
+        category.setStatus( request.getStatus() );
     }
 
     private Long categoryParentCategoryCategoryId(Category category) {
@@ -106,14 +106,14 @@ public class CategoryMapperImpl implements CategoryMapper {
 
         SupplierResponse.SupplierResponseBuilder supplierResponse = SupplierResponse.builder();
 
-        supplierResponse.supplierId( supplier.getSupplierId() );
+        supplierResponse.contactPerson( supplier.getContactPerson() );
         supplierResponse.description( supplier.getDescription() );
         supplierResponse.email( supplier.getEmail() );
-        supplierResponse.contactPerson( supplier.getContactPerson() );
         supplierResponse.name( supplier.getName() );
-        supplierResponse.website( supplier.getWebsite() );
         supplierResponse.phone( supplier.getPhone() );
+        supplierResponse.supplierId( supplier.getSupplierId() );
         supplierResponse.taxCode( supplier.getTaxCode() );
+        supplierResponse.website( supplier.getWebsite() );
 
         return supplierResponse.build();
     }
