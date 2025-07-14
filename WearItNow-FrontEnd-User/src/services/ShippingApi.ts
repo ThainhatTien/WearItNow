@@ -8,13 +8,13 @@ const SHOP_ID = process.env.REACT_APP_GHN_SHOP_ID || '5401403 - 0976745901';
 const GHN_TOKEN = process.env.REACT_APP_GHN_TOKEN || '32620eea-8b9f-11ef-8e53-0a00184fe694';
 const GHN_SHOP_ID = process.env.REACT_APP_GHN_SHOP_ID_NUM || 194821;
 
-const API_BASE_URL_ORDER = 'https://api.wearltnow.online/api/orders';
-const API_BASE_URL_ADDRESS = "https://api.wearltnow.online/api/user-address/is-active";
-const API_BASE_URL_PAYMENT = 'https://api.wearltnow.online/api/payments/payment-types';
+const API_BASE_URL_ORDER = 'http://localhost:8080/api/orders';
+const API_BASE_URL_ADDRESS = "http://localhost:8080/api/user-address/is-active";
+const API_BASE_URL_PAYMENT = 'http://localhost:8080/api/payments/payment-types';
 const API_BASE_URL_AVAILABLE = 'https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/available-services'
-const API_BASE_URL_PAYMENTQRCODE = 'https://api.wearltnow.online/api/payments/createQR'
+const API_BASE_URL_PAYMENTQRCODE = 'http://localhost:8080/api/payments/createQR'
 const API_BASE_URL_FEESHIPNG = 'https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee'
-const API_BASE_URL_DISCOUNT = 'https://api.wearltnow.online/api/discount-codes/user';
+const API_BASE_URL_DISCOUNT = 'http://localhost:8080/api/discount-codes/user';
 
 // Lấy danh sách Tỉnh/Thành
 export const getProvinces = async () => {

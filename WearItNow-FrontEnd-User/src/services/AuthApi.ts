@@ -3,7 +3,7 @@ import { AccountModel, OtpVerificationModel, PasswordResetModel, UserModel } fro
 import axios from 'axios';
 
 class AuthService {
-  private apiUrl = "https://api.wearltnow.online/api";
+  private apiUrl = "http://localhost:8080/api";
 
   async login(user: AccountModel): Promise<any> {
     try {

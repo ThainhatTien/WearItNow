@@ -24,8 +24,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-07-13T00:42:22+0700",
-    comments = "version: 1.5.3.Final, compiler: Eclipse JDT (IDE) 3.42.50.v20250628-1110, environment: Java 21.0.7 (Eclipse Adoptium)"
+    date = "2025-07-14T21:11:30+0700",
+    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 23.0.2 (Oracle Corporation)"
 )
 @Component
 public class ProductFavoriteMapperImpl implements ProductFavoriteMapper {
@@ -79,14 +79,14 @@ public class ProductFavoriteMapperImpl implements ProductFavoriteMapper {
 
         SupplierResponse.SupplierResponseBuilder supplierResponse = SupplierResponse.builder();
 
-        supplierResponse.contactPerson( supplier.getContactPerson() );
+        supplierResponse.supplierId( supplier.getSupplierId() );
         supplierResponse.description( supplier.getDescription() );
         supplierResponse.email( supplier.getEmail() );
+        supplierResponse.contactPerson( supplier.getContactPerson() );
         supplierResponse.name( supplier.getName() );
-        supplierResponse.phone( supplier.getPhone() );
-        supplierResponse.supplierId( supplier.getSupplierId() );
-        supplierResponse.taxCode( supplier.getTaxCode() );
         supplierResponse.website( supplier.getWebsite() );
+        supplierResponse.phone( supplier.getPhone() );
+        supplierResponse.taxCode( supplier.getTaxCode() );
 
         return supplierResponse.build();
     }
@@ -99,11 +99,11 @@ public class ProductFavoriteMapperImpl implements ProductFavoriteMapper {
         CategoryResponse.CategoryResponseBuilder categoryResponse = CategoryResponse.builder();
 
         categoryResponse.categoryId( category.getCategoryId() );
-        categoryResponse.description( category.getDescription() );
-        categoryResponse.image( category.getImage() );
         categoryResponse.name( category.getName() );
-        categoryResponse.slug( category.getSlug() );
+        categoryResponse.image( category.getImage() );
+        categoryResponse.description( category.getDescription() );
         categoryResponse.status( category.getStatus() );
+        categoryResponse.slug( category.getSlug() );
         categoryResponse.subCategories( categoryListToSubCategoryResponseList( category.getSubCategories() ) );
         categoryResponse.supplier( supplierToSupplierResponse( category.getSupplier() ) );
 
@@ -117,12 +117,12 @@ public class ProductFavoriteMapperImpl implements ProductFavoriteMapper {
 
         ProductResponse.ProductResponseBuilder productResponse = ProductResponse.builder();
 
-        productResponse.category( categoryToCategoryResponse( product.getCategory() ) );
-        productResponse.description( product.getDescription() );
-        productResponse.image( product.getImage() );
+        productResponse.productId( product.getProductId() );
         productResponse.name( product.getName() );
         productResponse.price( product.getPrice() );
-        productResponse.productId( product.getProductId() );
+        productResponse.image( product.getImage() );
+        productResponse.description( product.getDescription() );
+        productResponse.category( categoryToCategoryResponse( product.getCategory() ) );
 
         return productResponse.build();
     }
@@ -134,8 +134,8 @@ public class ProductFavoriteMapperImpl implements ProductFavoriteMapper {
 
         PermissionResponse.PermissionResponseBuilder permissionResponse = PermissionResponse.builder();
 
-        permissionResponse.description( permission.getDescription() );
         permissionResponse.name( permission.getName() );
+        permissionResponse.description( permission.getDescription() );
 
         return permissionResponse.build();
     }
@@ -160,8 +160,8 @@ public class ProductFavoriteMapperImpl implements ProductFavoriteMapper {
 
         RoleResponse.RoleResponseBuilder roleResponse = RoleResponse.builder();
 
-        roleResponse.description( role.getDescription() );
         roleResponse.name( role.getName() );
+        roleResponse.description( role.getDescription() );
         roleResponse.permissions( permissionSetToPermissionResponseSet( role.getPermissions() ) );
 
         return roleResponse.build();
@@ -187,15 +187,15 @@ public class ProductFavoriteMapperImpl implements ProductFavoriteMapper {
 
         UserResponse.UserResponseBuilder userResponse = UserResponse.builder();
 
-        userResponse.dob( user.getDob() );
-        userResponse.email( user.getEmail() );
-        userResponse.firstname( user.getFirstname() );
-        userResponse.gender( user.getGender() );
-        userResponse.lastname( user.getLastname() );
-        userResponse.phone( user.getPhone() );
-        userResponse.roles( roleSetToRoleResponseSet( user.getRoles() ) );
         userResponse.userId( user.getUserId() );
         userResponse.username( user.getUsername() );
+        userResponse.lastname( user.getLastname() );
+        userResponse.firstname( user.getFirstname() );
+        userResponse.phone( user.getPhone() );
+        userResponse.email( user.getEmail() );
+        userResponse.gender( user.getGender() );
+        userResponse.dob( user.getDob() );
+        userResponse.roles( roleSetToRoleResponseSet( user.getRoles() ) );
 
         return userResponse.build();
     }

@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-07-13T00:42:22+0700",
-    comments = "version: 1.5.3.Final, compiler: Eclipse JDT (IDE) 3.42.50.v20250628-1110, environment: Java 21.0.7 (Eclipse Adoptium)"
+    date = "2025-07-14T21:11:29+0700",
+    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 23.0.2 (Oracle Corporation)"
 )
 @Component
 public class UserAddressGroupMapperImpl implements UserAddressGroupMapper {
@@ -27,15 +27,15 @@ public class UserAddressGroupMapperImpl implements UserAddressGroupMapper {
         UserAddressGroup.UserAddressGroupBuilder userAddressGroup = UserAddressGroup.builder();
 
         userAddressGroup.user( userAddressGroupCreationRequestToUser( userAddressGroupCreationRequest ) );
-        userAddressGroup.toAddress( userAddressGroupCreationRequest.getToAddress() );
-        userAddressGroup.toDistrictId( userAddressGroupCreationRequest.getToDistrictId() );
-        userAddressGroup.toDistrictName( userAddressGroupCreationRequest.getToDistrictName() );
         userAddressGroup.toName( userAddressGroupCreationRequest.getToName() );
         userAddressGroup.toPhone( userAddressGroupCreationRequest.getToPhone() );
+        userAddressGroup.toWardCode( userAddressGroupCreationRequest.getToWardCode() );
+        userAddressGroup.toAddress( userAddressGroupCreationRequest.getToAddress() );
+        userAddressGroup.toDistrictId( userAddressGroupCreationRequest.getToDistrictId() );
+        userAddressGroup.toWardName( userAddressGroupCreationRequest.getToWardName() );
+        userAddressGroup.toDistrictName( userAddressGroupCreationRequest.getToDistrictName() );
         userAddressGroup.toProvinceId( userAddressGroupCreationRequest.getToProvinceId() );
         userAddressGroup.toProvinceName( userAddressGroupCreationRequest.getToProvinceName() );
-        userAddressGroup.toWardCode( userAddressGroupCreationRequest.getToWardCode() );
-        userAddressGroup.toWardName( userAddressGroupCreationRequest.getToWardName() );
 
         return userAddressGroup.build();
     }
@@ -50,16 +50,16 @@ public class UserAddressGroupMapperImpl implements UserAddressGroupMapper {
 
         userAddressGroupResponse.setUserId( userAddressGroupUserUserId( userAddressGroup ) );
         userAddressGroupResponse.setId( userAddressGroup.getId() );
-        userAddressGroupResponse.setIsActive( userAddressGroup.getIsActive() );
-        userAddressGroupResponse.setToAddress( userAddressGroup.getToAddress() );
-        userAddressGroupResponse.setToDistrictId( userAddressGroup.getToDistrictId() );
-        userAddressGroupResponse.setToDistrictName( userAddressGroup.getToDistrictName() );
         userAddressGroupResponse.setToName( userAddressGroup.getToName() );
         userAddressGroupResponse.setToPhone( userAddressGroup.getToPhone() );
+        userAddressGroupResponse.setToWardCode( userAddressGroup.getToWardCode() );
+        userAddressGroupResponse.setToAddress( userAddressGroup.getToAddress() );
+        userAddressGroupResponse.setIsActive( userAddressGroup.getIsActive() );
+        userAddressGroupResponse.setToDistrictId( userAddressGroup.getToDistrictId() );
+        userAddressGroupResponse.setToWardName( userAddressGroup.getToWardName() );
+        userAddressGroupResponse.setToDistrictName( userAddressGroup.getToDistrictName() );
         userAddressGroupResponse.setToProvinceId( userAddressGroup.getToProvinceId() );
         userAddressGroupResponse.setToProvinceName( userAddressGroup.getToProvinceName() );
-        userAddressGroupResponse.setToWardCode( userAddressGroup.getToWardCode() );
-        userAddressGroupResponse.setToWardName( userAddressGroup.getToWardName() );
 
         return userAddressGroupResponse;
     }
@@ -88,15 +88,15 @@ public class UserAddressGroupMapperImpl implements UserAddressGroupMapper {
             userAddressGroup.setUser( User.builder().build() );
         }
         userAddressGroupUpdationRequestToUser( request, userAddressGroup.getUser() );
-        userAddressGroup.setToAddress( request.getToAddress() );
-        userAddressGroup.setToDistrictId( request.getToDistrictId() );
-        userAddressGroup.setToDistrictName( request.getToDistrictName() );
         userAddressGroup.setToName( request.getToName() );
         userAddressGroup.setToPhone( request.getToPhone() );
+        userAddressGroup.setToWardCode( request.getToWardCode() );
+        userAddressGroup.setToAddress( request.getToAddress() );
+        userAddressGroup.setToDistrictId( request.getToDistrictId() );
+        userAddressGroup.setToWardName( request.getToWardName() );
+        userAddressGroup.setToDistrictName( request.getToDistrictName() );
         userAddressGroup.setToProvinceId( request.getToProvinceId() );
         userAddressGroup.setToProvinceName( request.getToProvinceName() );
-        userAddressGroup.setToWardCode( request.getToWardCode() );
-        userAddressGroup.setToWardName( request.getToWardName() );
     }
 
     protected User userAddressGroupCreationRequestToUser(UserAddressGroupCreationRequest userAddressGroupCreationRequest) {

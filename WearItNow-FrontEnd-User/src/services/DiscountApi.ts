@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { DiscountCode } from '../stores/DiscountModel'; 
 
-const BASE_URL = 'https://api.wearltnow.online';
+const BASE_URL = 'http://localhost:8080/api';
 
 const DiscountService = {
     getDiscountCodesByUser: async (userId: number): Promise<DiscountCode[]> => {

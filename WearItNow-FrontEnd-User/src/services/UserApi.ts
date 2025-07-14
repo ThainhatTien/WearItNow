@@ -1,7 +1,7 @@
 import { AccountModel } from './../stores/UserModel';
 import AuthApi from './AuthApi';
 // services/UserService.ts
-const apiUrl = "https://api.wearltnow.online"; 
+const apiUrl = "http://localhost:8080/api"; 
 
 export const getUserInfo = async () => {
   const token = localStorage.getItem("token"); // Lấy token từ localStorage

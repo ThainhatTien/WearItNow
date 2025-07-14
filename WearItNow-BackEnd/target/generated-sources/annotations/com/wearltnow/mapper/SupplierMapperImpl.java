@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-07-13T00:42:22+0700",
-    comments = "version: 1.5.3.Final, compiler: Eclipse JDT (IDE) 3.42.50.v20250628-1110, environment: Java 21.0.7 (Eclipse Adoptium)"
+    date = "2025-07-14T21:11:29+0700",
+    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 23.0.2 (Oracle Corporation)"
 )
 @Component
 public class SupplierMapperImpl implements SupplierMapper {
@@ -23,13 +23,13 @@ public class SupplierMapperImpl implements SupplierMapper {
 
         Supplier.SupplierBuilder supplier1 = Supplier.builder();
 
-        supplier1.contactPerson( supplier.getContactPerson() );
         supplier1.description( supplier.getDescription() );
         supplier1.email( supplier.getEmail() );
+        supplier1.contactPerson( supplier.getContactPerson() );
         supplier1.name( supplier.getName() );
+        supplier1.website( supplier.getWebsite() );
         supplier1.phone( supplier.getPhone() );
         supplier1.taxCode( supplier.getTaxCode() );
-        supplier1.website( supplier.getWebsite() );
 
         return supplier1.build();
     }
@@ -42,14 +42,14 @@ public class SupplierMapperImpl implements SupplierMapper {
 
         SupplierResponse.SupplierResponseBuilder supplierResponse = SupplierResponse.builder();
 
-        supplierResponse.contactPerson( supplier.getContactPerson() );
+        supplierResponse.supplierId( supplier.getSupplierId() );
         supplierResponse.description( supplier.getDescription() );
         supplierResponse.email( supplier.getEmail() );
+        supplierResponse.contactPerson( supplier.getContactPerson() );
         supplierResponse.name( supplier.getName() );
-        supplierResponse.phone( supplier.getPhone() );
-        supplierResponse.supplierId( supplier.getSupplierId() );
-        supplierResponse.taxCode( supplier.getTaxCode() );
         supplierResponse.website( supplier.getWebsite() );
+        supplierResponse.phone( supplier.getPhone() );
+        supplierResponse.taxCode( supplier.getTaxCode() );
 
         return supplierResponse.build();
     }
@@ -60,12 +60,12 @@ public class SupplierMapperImpl implements SupplierMapper {
             return;
         }
 
-        supplier.setContactPerson( request.getContactPerson() );
         supplier.setDescription( request.getDescription() );
         supplier.setEmail( request.getEmail() );
+        supplier.setContactPerson( request.getContactPerson() );
         supplier.setName( request.getName() );
+        supplier.setWebsite( request.getWebsite() );
         supplier.setPhone( request.getPhone() );
         supplier.setTaxCode( request.getTaxCode() );
-        supplier.setWebsite( request.getWebsite() );
     }
 }

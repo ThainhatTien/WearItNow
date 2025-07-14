@@ -16,8 +16,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-07-13T00:42:22+0700",
-    comments = "version: 1.5.3.Final, compiler: Eclipse JDT (IDE) 3.42.50.v20250628-1110, environment: Java 21.0.7 (Eclipse Adoptium)"
+    date = "2025-07-14T21:11:29+0700",
+    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 23.0.2 (Oracle Corporation)"
 )
 @Component
 public class UserMapperImpl implements UserMapper {
@@ -30,14 +30,14 @@ public class UserMapperImpl implements UserMapper {
 
         User.UserBuilder user = User.builder();
 
-        user.dob( request.getDob() );
-        user.email( request.getEmail() );
-        user.firstname( request.getFirstname() );
-        user.gender( request.getGender() );
-        user.lastname( request.getLastname() );
-        user.password( request.getPassword() );
-        user.phone( request.getPhone() );
         user.username( request.getUsername() );
+        user.password( request.getPassword() );
+        user.lastname( request.getLastname() );
+        user.firstname( request.getFirstname() );
+        user.phone( request.getPhone() );
+        user.email( request.getEmail() );
+        user.gender( request.getGender() );
+        user.dob( request.getDob() );
 
         return user.build();
     }
@@ -50,15 +50,15 @@ public class UserMapperImpl implements UserMapper {
 
         UserResponse.UserResponseBuilder userResponse = UserResponse.builder();
 
-        userResponse.dob( user.getDob() );
-        userResponse.email( user.getEmail() );
-        userResponse.firstname( user.getFirstname() );
-        userResponse.gender( user.getGender() );
-        userResponse.lastname( user.getLastname() );
-        userResponse.phone( user.getPhone() );
-        userResponse.roles( roleSetToRoleResponseSet( user.getRoles() ) );
         userResponse.userId( user.getUserId() );
         userResponse.username( user.getUsername() );
+        userResponse.lastname( user.getLastname() );
+        userResponse.firstname( user.getFirstname() );
+        userResponse.phone( user.getPhone() );
+        userResponse.email( user.getEmail() );
+        userResponse.gender( user.getGender() );
+        userResponse.dob( user.getDob() );
+        userResponse.roles( roleSetToRoleResponseSet( user.getRoles() ) );
 
         return userResponse.build();
     }
@@ -69,12 +69,12 @@ public class UserMapperImpl implements UserMapper {
             return;
         }
 
-        user.setDob( request.getDob() );
-        user.setEmail( request.getEmail() );
-        user.setFirstname( request.getFirstname() );
-        user.setGender( request.getGender() );
         user.setLastname( request.getLastname() );
+        user.setFirstname( request.getFirstname() );
         user.setPhone( request.getPhone() );
+        user.setEmail( request.getEmail() );
+        user.setGender( request.getGender() );
+        user.setDob( request.getDob() );
     }
 
     @Override
@@ -85,9 +85,9 @@ public class UserMapperImpl implements UserMapper {
 
         User.UserBuilder user = User.builder();
 
-        user.email( request.getEmail() );
-        user.password( request.getPassword() );
         user.username( request.getUsername() );
+        user.password( request.getPassword() );
+        user.email( request.getEmail() );
 
         return user.build();
     }
@@ -99,8 +99,8 @@ public class UserMapperImpl implements UserMapper {
 
         PermissionResponse.PermissionResponseBuilder permissionResponse = PermissionResponse.builder();
 
-        permissionResponse.description( permission.getDescription() );
         permissionResponse.name( permission.getName() );
+        permissionResponse.description( permission.getDescription() );
 
         return permissionResponse.build();
     }
@@ -125,8 +125,8 @@ public class UserMapperImpl implements UserMapper {
 
         RoleResponse.RoleResponseBuilder roleResponse = RoleResponse.builder();
 
-        roleResponse.description( role.getDescription() );
         roleResponse.name( role.getName() );
+        roleResponse.description( role.getDescription() );
         roleResponse.permissions( permissionSetToPermissionResponseSet( role.getPermissions() ) );
 
         return roleResponse.build();

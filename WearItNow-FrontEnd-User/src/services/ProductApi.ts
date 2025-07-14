@@ -10,8 +10,7 @@ import { CommentData, ProductCommentsResponse } from "../stores/ProductComents";
 import axiosInstance from "./api.services";
 
 // Cấu hình base URL cho API
-const API_BASE_URL = "https://api.wearltnow.online/api";
-const API_BASE_URL_LOCAL = "http://localhost:8080/api";
+const API_BASE_URL = "http://localhost:8080/api";
 
 // Hàm tiện ích để gọi API
 async function fetchFromAPI<T>(

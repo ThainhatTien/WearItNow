@@ -3,7 +3,7 @@ import axios from "axios";
 
 // Cấu hình base URL cho API
 // const API_BASE_URL = 'http://localhost:8080/api'; 
-const API_BASE_URL = 'https://api.wearltnow.online/api';// Thay đổi URL này theo API của bạn
+const API_BASE_URL = 'http://localhost:8080/api';// Thay đổi URL này theo API của bạn
 
 // Hàm lấy tất cả danh mục
 export async function fetchCategories(): Promise<CategoriesResult> {

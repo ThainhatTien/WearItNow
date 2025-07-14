@@ -3,7 +3,7 @@
 import axios from "axios";
 import { UserAddress, UserAddressResponse } from "../stores/UserAddress";
 
-const API_BASE_URL = "https://api.wearltnow.online/api/user-address";
+const API_BASE_URL = "http://localhost:8080/api/user-address";
 
 
 

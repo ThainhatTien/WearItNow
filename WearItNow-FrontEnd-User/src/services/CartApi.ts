@@ -2,7 +2,7 @@
 import axios from "axios";
 import {CartResult, CartItemServer} from "../stores/Cart";
 
-const API_BASE_URL = 'https://api.wearltnow.online/v0/cart'; // Thay đổi URL này theo API của bạn
+const API_BASE_URL = 'localhost:8080/api/v0/cart'; // Thay đổi URL này theo API của bạn
 
 // Function to add a product to cart by productId and quantity
 // This is used by the product components

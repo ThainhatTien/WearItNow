@@ -2,7 +2,7 @@ import axios from 'axios';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
 
 
-const GET_API ='https://api.wearltnow.online/api/auth'
+const GET_API ='http://localhost:8080/api/auth'
 
 export const refreshToken = async () => {
   try {

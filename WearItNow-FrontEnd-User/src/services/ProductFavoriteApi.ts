@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Địa chỉ base API
-const API_URL = 'https://api.wearltnow.online/api/favorites';
+const API_URL = 'http://localhost:8080/api/favorites';
 
 // Thêm sản phẩm vào danh sách yêu thích
 export const addToFavorites = async (userId: number, productId: number) => {

@@ -2,8 +2,7 @@ import axios from "axios";
 import { refreshToken } from "./RefreshToken";
 
 const axiosInstance = axios.create({
-    // baseURL: 'http://localhost:8080/api', // Địa chỉ API của bạn
-    baseURL: 'https://api.wearltnow.online/api',
+    baseURL: 'http://localhost:8080/api',
     headers: {
       'Content-Type': 'application/json',
       // 'Authorization': `Bearer ${token}` // Bạn có thể thêm token ở đây nếu cần
